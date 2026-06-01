@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>HealthPortal — Enter</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --green-deep:    #1f2a1d;
+    --green-mid:     #2d3a2a;
+    --green-hover:   #2a3827;
+    --green-body:    #4b5b47;
+    --green-head:    #336443;
+    --green-accent:  #85AB8B;
+    --green-cta:     #3d5638;
+    --green-light:   #eef5ec;
+    --cream:         #f7f9f5;
+    --white:         #ffffff;
+  }
+
+  html, body {
+    height: 100%;
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--green-deep);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── Layout ── */
+  .page {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  /* ── Left Panel ── */
+  .left {
+    position: relative;
+    background: var(--green-deep);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 2.5rem 3rem;
+    overflow: hidden;
+  }
+
+  .left::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 70% 60% at 20% 80%, rgba(133,171,139,0.18) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 40% at 80% 20%, rgba(61,86,56,0.4) 0%, transparent 60%);
+    pointer-events: none;
+  }
+
+  .left-logo {
+    position: relative;
+    z-index: 1;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--green-accent);
+    letter-spacing: -0.02em;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .left-logo sup { font-size: 0.55rem; }
+
+  .left-body {
+    position: relative;
+    z-index: 1;
+  }
+
+  .left-body h2 {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2rem, 3.5vw, 3.2rem);
+    line-height: 1.05;
+    color: var(--white);
+    letter-spacing: -0.03em;
+    margin-bottom: 1.25rem;
+  }
+
+  .left-body h2 em {
+    font-style: italic;
+    color: var(--green-accent);
+  }
+
+  .left-body p {
+    color: rgba(255,255,255,0.6);
+    font-size: 0.9rem;
+    line-height: 1.7;
+    max-width: 320px;
+    font-weight: 300;
+  }
+
+  .features {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .feature-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 100px;
+    padding: 0.45rem 0.9rem;
+    width: fit-content;
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.75);
+    backdrop-filter: blur(4px);
+  }
+
+  .feature-pill .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--green-accent);
+    flex-shrink: 0;
+  }
+
+  /* ── Right Panel ── */
+  .right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1.5rem;
+    background: var(--cream);
+  }
+
+  .card {
+    width: 100%;
+    max-width: 400px;
+  }
+
+  .card-header {
+    margin-bottom: 2.5rem;
+  }
+
+  .card-header h1 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 2.2rem;
+    color: var(--green-head);
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+  }
+
+  .card-header p {
+    margin-top: 0.5rem;
+    font-size: 0.875rem;
+    color: var(--green-body);
+    font-weight: 300;
+  }
+
+  .card-header p a {
+    color: var(--green-cta);
+    font-weight: 500;
+    text-decoration: none;
+    border-bottom: 1px solid var(--green-accent);
+    transition: opacity .2s;
+  }
+  .card-header p a:hover { opacity: 0.7; }
+
+  /* ── Form ── */
+  .field { margin-bottom: 1.1rem; }
+
+  label {
+    display: block;
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--green-body);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: 0.4rem;
+  }
+
+  input[type="email"],
+  input[type="password"],
+  input[type="text"] {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1.5px solid rgba(61,86,56,0.2);
+    border-radius: 10px;
+    background: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem;
+    color: var(--green-deep);
+    outline: none;
+    transition: border-color .2s, box-shadow .2s;
+  }
+
+  input:focus {
+    border-color: var(--green-accent);
+    box-shadow: 0 0 0 3px rgba(133,171,139,0.18);
+  }
+
+  .input-wrap { position: relative; }
+
+  .toggle-pw {
+    position: absolute;
+    right: 0.9rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--green-body);
+    opacity: 0.55;
+    transition: opacity .2s;
+    display: flex;
+    align-items: center;
+  }
+  .toggle-pw:hover { opacity: 1; }
+
+  /* ── Error / Success Alerts ── */
+  .alert {
+    border-radius: 10px;
+    padding: 0.75rem 1rem;
+    font-size: 0.82rem;
+    font-weight: 500;
+    margin-bottom: 1.1rem;
+    display: none;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .alert.error  { background: #fdf0f0; color: #b91c1c; border: 1px solid #fca5a5; display: flex; }
+  .alert.success{ background: #f0fdf4; color: #15803d; border: 1px solid #86efac; display: flex; }
+  .alert.hidden { display: none !important; }
+
+  /* ── Submit Button ── */
+  .btn-primary {
+    width: 100%;
+    padding: 0.85rem;
+    background: var(--green-deep);
+    color: var(--white);
+    border: none;
+    border-radius: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background .2s, transform .15s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1.4rem;
+    letter-spacing: -0.01em;
+  }
+  .btn-primary:hover:not(:disabled) { background: var(--green-hover); transform: translateY(-1px); }
+  .btn-primary:active:not(:disabled) { transform: translateY(0); }
+  .btn-primary:disabled { opacity: 0.55; cursor: not-allowed; }
+
+  /* Loading spinner */
+  .spinner {
+    width: 16px; height: 16px;
+    border: 2px solid rgba(255,255,255,0.3);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spin .6s linear infinite;
+    display: none;
+  }
+  .btn-primary.loading .spinner { display: block; }
+  .btn-primary.loading .btn-text { opacity: 0.7; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ── Divider ── */
+  .divider {
+    text-align: center;
+    margin: 1.4rem 0;
+    position: relative;
+    color: var(--green-body);
+    font-size: 0.78rem;
+    opacity: 0.5;
+  }
+  .divider::before, .divider::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 42%;
+    height: 1px;
+    background: rgba(61,86,56,0.15);
+  }
+  .divider::before { left: 0; }
+  .divider::after  { right: 0; }
+
+  /* ── Responsive ── */
+  @media (max-width: 768px) {
+    .page { grid-template-columns: 1fr; }
+    .left { display: none; }
+    .right {
+      min-height: 100vh;
+      padding: 2.5rem 1.5rem;
+    }
+    .card { max-width: 100%; }
+  }
+
+  /* Fade-in */
+  .card { animation: fadeUp .5s ease both; }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+  <!-- Left decorative panel -->
+  <div class="left">
+    <div class="left-logo">
+      HealthPortal<sup>™</sup>
+    </div>
+    <div class="left-body">
+      <h2>Your health,<br /><em>in one place.</em></h2>
+      <p>Access your complete medical history, diagnoses, encounters, and care plans — securely and instantly.</p>
+    </div>
+    <div class="features">
+      <div class="feature-pill"><span class="dot"></span>Real-time encounter tracking</div>
+      <div class="feature-pill"><span class="dot"></span>ICD-9 diagnosis summaries</div>
+      <div class="feature-pill"><span class="dot"></span>Medication matrix history</div>
+      <div class="feature-pill"><span class="dot"></span>Readmission risk scoring</div>
+    </div>
+  </div>
+
+  <!-- Right login form -->
+  <div class="right">
+    <div class="card">
+      <div class="card-header">
+        <h1>Welcome back.</h1>
+        <p>New here? <a href="register.html">Create an account</a></p>
+      </div>
+
+      <div class="alert" id="alertBox">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <span id="alertMsg"></span>
+      </div>
+
+      <form id="loginForm" novalidate>
+        <div class="field">
+          <label for="email">Email address</label>
+          <input type="email" id="email" name="email" placeholder="you@healthportal.com" autocomplete="email" required />
+        </div>
+
+        <div class="field">
+          <label for="password">Password</label>
+          <div class="input-wrap">
+            <input type="password" id="password" name="password" placeholder="••••••••" autocomplete="current-password" required />
+            <button type="button" class="toggle-pw" onclick="togglePw()" aria-label="Show/hide password">
+              <svg id="eyeIcon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-primary" id="loginBtn">
+          <div class="spinner"></div>
+          <span class="btn-text">Enter Portal</span>
+        </button>
+      </form>
+
+      <div class="divider">or</div>
+      <p style="text-align:center;font-size:0.82rem;color:var(--green-body);">
+        Don't have an account? <a href="register.html" style="color:var(--green-cta);font-weight:500;text-decoration:none;border-bottom:1px solid var(--green-accent);">Register now →</a>
+      </p>
+    </div>
+  </div>
+</div>
+
+<script>
+  const API = 'http://localhost:8080/api';
+
+  // ── Session guard: if already logged in, skip to patient dash ──
+  (function() {
+    const s = sessionStorage.getItem('hp_session');
+    if (s) { window.location.href = 'patient.html'; }
+  })();
+
+  function togglePw() {
+    const pw = document.getElementById('password');
+    const icon = document.getElementById('eyeIcon');
+    if (pw.type === 'password') {
+      pw.type = 'text';
+      icon.innerHTML = '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>';
+    } else {
+      pw.type = 'password';
+      icon.innerHTML = '<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>';
+    }
+  }
+
+  function showAlert(msg, type) {
+    const box = document.getElementById('alertBox');
+    const txt = document.getElementById('alertMsg');
+    box.className = 'alert ' + type;
+    txt.textContent = msg;
+  }
+
+  function hideAlert() {
+    document.getElementById('alertBox').className = 'alert hidden';
+  }
+
+  document.getElementById('loginForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    hideAlert();
+
+    const email    = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value;
+    const btn      = document.getElementById('loginBtn');
+
+    if (!email || !password) {
+      showAlert('Please fill in both fields.', 'error'); return;
+    }
+
+    btn.classList.add('loading');
+    btn.disabled = true;
+
+    try {
+      const res = await fetch(`${API}/patients/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+      });
+
+      const data = await res.json().catch(() => ({}));
+
+      if (res.ok) {
+        // Store session
+        sessionStorage.setItem('hp_session', JSON.stringify({
+          id:          data.id          ?? data.patientId ?? null,
+          patientNbr:  data.patientNbr  ?? data.patientNumber ?? null,
+          fullName:    data.fullName     ?? data.name ?? email,
+          email:       email
+        }));
+        showAlert('Login successful! Redirecting…', 'success');
+        setTimeout(() => { window.location.href = 'patient.html'; }, 800);
+      } else {
+        const msg = data.message || data.error || data.reason || 'Invalid email or password.';
+        showAlert(msg, 'error');
+      }
+    } catch (err) {
+      showAlert('Cannot reach the server. Please try again.', 'error');
+    } finally {
+      btn.classList.remove('loading');
+      btn.disabled = false;
+    }
+  });
+</script>
+</body>
+</html>
